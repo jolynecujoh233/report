@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>无畏契约 · 电竞化路径观察</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #FF4655;
+    --red-dim: rgba(255,70,85,0.12);
+    --red-mid: rgba(255,70,85,0.3);
+    --bg: #0F1923;
+    --bg-2: #162030;
+    --bg-3: #1c2a3a;
+    --bg-4: #223040;
+    --line: rgba(255,255,255,0.07);
+    --line-2: rgba(255,255,255,0.14);
+    --text: #ECE8E1;
+    --text-2: #9BA5B0;
+    --text-3: #5A6472;
+    --gold: #C89B3C;
+    --gold-dim: rgba(200,155,60,0.12);
+    --teal: #3BBFAD;
+    --teal-dim: rgba(59,191,173,0.1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Noto Sans SC', sans-serif; background: var(--bg); color: var(--text); line-height: 1.8; }
+  .cover { min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between; padding: 3.5rem 4rem; border-bottom: 1px solid var(--line-2); position: relative; overflow: hidden; }
+  .cover-bg { position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent, transparent 79px, var(--line) 79px, var(--line) 80px), repeating-linear-gradient(0deg, transparent, transparent 79px, var(--line) 79px, var(--line) 80px); pointer-events: none; }
+  .cover-accent { position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--red); }
+  .cover-top { display: flex; justify-content: space-between; align-items: flex-start; position: relative; }
+  .cover-tag { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-3); border: 1px solid var(--line-2); padding: 4px 10px; margin-right: 8px; display: inline-block; }
+  .cover-tag.hot { border-color: var(--red); color: var(--red); }
+  .cover-body { position: relative; max-width: 720px; padding: 4rem 0 2rem; }
+  .cover-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.25em; color: var(--red); text-transform: uppercase; margin-bottom: 1.5rem; }
+  .cover-title { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(3.5rem, 8vw, 7rem); font-weight: 700; line-height: 1; letter-spacing: 0.02em; text-transform: uppercase; margin-bottom: 1rem; }
+  .cover-title .line-red { color: var(--red); }
+  .cover-title .line-dim { color: var(--text-2); font-weight: 400; }
+  .cover-subtitle { font-size: 1rem; color: var(--text-2); font-weight: 300; max-width: 520px; line-height: 1.9; border-left: 2px solid var(--red); padding-left: 1.2rem; margin-top: 1.5rem; }
+  .cover-stats { display: flex; gap: 3rem; position: relative; padding-top: 2rem; border-top: 1px solid var(--line-2); margin-top: 3rem; }
+  .stat-item { display: flex; flex-direction: column; gap: 4px; }
+  .stat-num { font-family: 'Barlow Condensed', sans-serif; font-size: 2.2rem; font-weight: 700; color: var(--text); letter-spacing: 0.02em; line-height: 1; }
+  .stat-num span { color: var(--red); }
+  .stat-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: var(--text-3); text-transform: uppercase; }
+  nav { position: sticky; top: 0; z-index: 100; background: rgba(15,25,35,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line-2); display: flex; overflow-x: auto; scrollbar-width: none; }
+  nav::-webkit-scrollbar { display: none; }
+  .nav-item { flex-shrink: 0; padding: 0.9rem 1.4rem; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; color: var(--text-3); cursor: pointer; border-right: 1px solid var(--line); transition: all 0.2s; text-decoration: none; display: block; white-space: nowrap; text-transform: uppercase; }
+  .nav-item:hover { color: var(--text); background: var(--bg-2); }
+  .nav-item.active { color: var(--red); border-bottom: 2px solid var(--red); }
+  .section { padding: 5rem 4rem; border-bottom: 1px solid var(--line); }
+  .section:nth-child(odd) { background: var(--bg-2); }
+  .section-header { display: flex; align-items: baseline; gap: 1.2rem; margin-bottom: 3rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--line-2); position: relative; }
+  .section-header::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 60px; height: 2px; background: var(--red); }
+  .section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--red); letter-spacing: 0.15em; }
+  .section-title { font-family: 'Barlow Condensed', sans-serif; font-size: 2rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text); }
+  .lead { font-size: 1.05rem; color: var(--text-2); max-width: 700px; margin-bottom: 3rem; line-height: 2; font-weight: 300; }
+  .lead strong { color: var(--text); font-weight: 500; }
+  .callout { border-left: 2px solid var(--red); padding: 1.2rem 1.5rem; background: var(--red-dim); margin: 2rem 0; font-size: 0.9rem; line-height: 1.9; color: var(--text-2); }
+  .callout.gold { border-color: var(--gold); background: var(--gold-dim); }
+  .callout.teal { border-color: var(--teal); background: var(--teal-dim); }
+  .callout-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 6px; color: var(--text-3); }
+  .thesis { border: 1px solid var(--red-mid); background: var(--red-dim); padding: 2rem 2.5rem; margin: 2.5rem 0; position: relative; }
+  .thesis::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--red); }
+  .thesis-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 10px; }
+  .thesis-body { font-size: 1rem; line-height: 2; color: var(--text); }
+  .dim-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-3); margin: 2.5rem 0 1rem; display: flex; align-items: center; gap: 12px; }
+  .dim-label::after { content: ''; flex: 1; height: 1px; background: var(--line-2); }
+  .feature-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1px; background: var(--line-2); border: 1px solid var(--line-2); margin: 2rem 0; }
+  .feature-card { background: var(--bg); padding: 1.5rem; transition: background 0.15s; }
+  .section:nth-child(odd) .feature-card { background: var(--bg-2); }
+  .feature-card:hover { background: var(--bg-3); }
+  .feature-icon { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.12em; padding: 3px 8px; margin-bottom: 10px; display: inline-block; text-transform: uppercase; }
+  .fi-red { background: var(--red-dim); color: var(--red); border: 1px solid var(--red-mid); }
+  .fi-gold { background: var(--gold-dim); color: var(--gold); border: 1px solid rgba(200,155,60,0.3); }
+  .fi-teal { background: var(--teal-dim); color: var(--teal); border: 1px solid rgba(59,191,173,0.3); }
+  .feature-title { font-weight: 500; font-size: 14px; margin-bottom: 6px; color: var(--text); }
+  .feature-body { font-size: 12px; color: var(--text-2); line-height: 1.8; }
+  .data-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 13px; }
+  .data-table th { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-3); text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--line-2); font-weight: 400; background: var(--bg-3); }
+  .data-table td { padding: 10px 12px; border-bottom: 1px solid var(--line); color: var(--text-2); vertical-align: top; line-height: 1.7; }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: var(--bg-3); }
+  .data-table td:first-child { color: var(--text); font-weight: 500; white-space: nowrap; }
+  .vct-tiers { display: flex; flex-direction: column; gap: 1px; background: var(--line-2); border: 1px solid var(--line-2); margin: 2rem 0; }
+  .vct-tier { display: grid; grid-template-columns: 160px 1fr 140px; gap: 0; background: var(--bg); padding: 0; transition: background 0.15s; overflow: hidden; }
+  .section:nth-child(odd) .vct-tier { background: var(--bg-2); }
+  .vct-tier:hover { background: var(--bg-3); }
+  .vct-tier-level { padding: 1.2rem 1.5rem; display: flex; flex-direction: column; justify-content: center; border-right: 1px solid var(--line); }
+  .tier-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+  .tier-sub { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.1em; color: var(--text-3); margin-top: 3px; }
+  .vct-tier-body { padding: 1.2rem 1.5rem; font-size: 13px; color: var(--text-2); line-height: 1.8; border-right: 1px solid var(--line); }
+  .vct-tier-meta { padding: 1.2rem 1.5rem; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--text-3); display: flex; flex-direction: column; justify-content: center; gap: 4px; }
+  .t1 .tier-name { color: var(--red); }
+  .t2 .tier-name { color: var(--gold); }
+  .t3 .tier-name { color: var(--teal); }
+  .skin-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line-2); border: 1px solid var(--line-2); margin: 2rem 0; }
+  .skin-card { background: var(--bg); padding: 1.5rem; }
+  .section:nth-child(odd) .skin-card { background: var(--bg-2); }
+  .skin-tier { font-family: 'Barlow Condensed', sans-serif; font-size: 1.3rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px; }
+  .skin-price { font-family: 'IBM Plex Mono', monospace; font-size: 1rem; font-weight: 500; margin-bottom: 10px; }
+  .skin-body { font-size: 12px; color: var(--text-2); line-height: 1.8; }
+  .timeline { margin: 2rem 0; padding-left: 1.5rem; border-left: 1px solid var(--line-2); position: relative; }
+  .timeline::before { content: ''; position: absolute; left: 0; top: 0; width: 2px; height: 40px; background: var(--red); }
+  .timeline-item { padding: 0 0 2rem 1.5rem; position: relative; }
+  .timeline-item::before { content: ''; position: absolute; left: -5px; top: 6px; width: 8px; height: 8px; background: var(--bg); border: 1px solid var(--text-3); }
+  .timeline-item.highlight::before { background: var(--red); border-color: var(--red); }
+  .timeline-date { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: var(--red); margin-bottom: 4px; }
+  .timeline-event { font-size: 14px; font-weight: 500; margin-bottom: 4px; color: var(--text); }
+  .timeline-note { font-size: 12px; color: var(--text-3); line-height: 1.7; }
+  .compare-row { display: grid; grid-template-columns: 140px 1fr 1fr; gap: 0; border-bottom: 1px solid var(--line); }
+  .compare-row.header { background: var(--bg-3); border-bottom: 1px solid var(--line-2); }
+  .compare-row:hover:not(.header) { background: var(--bg-3); }
+  .compare-cell { padding: 10px 14px; font-size: 13px; color: var(--text-2); border-right: 1px solid var(--line); line-height: 1.7; }
+  .compare-cell:last-child { border-right: none; }
+  .compare-row.header .compare-cell { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-3); font-weight: 400; }
+  .compare-cell.dim { color: var(--text); font-weight: 500; }
+  .compare-cell .tag-bad { color: var(--red); font-size: 11px; }
+  .compare-cell .tag-good { color: var(--teal); font-size: 11px; }
+  .insight-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1px; background: var(--line-2); border: 1px solid var(--line-2); margin: 2rem 0; }
+  .insight-card { background: var(--bg); padding: 1.5rem; transition: background 0.15s; }
+  .section:nth-child(odd) .insight-card { background: var(--bg-2); }
+  .insight-card:hover { background: var(--bg-3); }
+  .insight-num { font-family: 'Barlow Condensed', sans-serif; font-size: 2.5rem; font-weight: 700; color: var(--red); line-height: 1; margin-bottom: 8px; opacity: 0.5; }
+  .insight-title { font-weight: 500; font-size: 14px; margin-bottom: 6px; color: var(--text); }
+  .insight-body { font-size: 12px; color: var(--text-2); line-height: 1.8; }
+  .pressure-wrap { margin: 1.5rem 0; }
+  .pressure-item { display: grid; grid-template-columns: 180px 1fr 60px; gap: 12px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--line); }
+  .pressure-label { font-size: 13px; color: var(--text-2); }
+  .pressure-track { height: 3px; background: var(--bg-4); position: relative; }
+  .pressure-fill { position: absolute; left: 0; top: 0; height: 100%; transition: width 1.2s ease; }
+  .fill-red { background: var(--red); }
+  .fill-gold { background: var(--gold); }
+  .fill-teal { background: var(--teal); }
+  .pressure-val { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--text-3); text-align: right; }
+  footer { padding: 3rem 4rem; display: flex; justify-content: space-between; align-items: center; font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--text-3); letter-spacing: 0.08em; border-top: 1px solid var(--line-2); }
+  .footer-logo { font-family: 'Barlow Condensed', sans-serif; font-size: 1.4rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+  .footer-logo span { color: var(--red); }
+  @media (max-width: 720px) { .cover, .section { padding: 2.5rem 1.5rem; } footer { padding: 2rem 1.5rem; flex-direction: column; gap: 12px; align-items: flex-start; } .skin-grid { grid-template-columns: 1fr; } .vct-tier { grid-template-columns: 1fr; } .vct-tier-meta { border-top: 1px solid var(--line); } .cover-stats { flex-wrap: wrap; gap: 1.5rem; } }
+  .cover-enter { margin-top: 2.5rem; animation: fadeUp 0.7s ease 0.7s both; }
+  .btn-enter { display: inline-flex; align-items: center; gap: 10px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--bg); background: var(--red); border: none; padding: 13px 28px; cursor: pointer; transition: all 0.2s; position: relative; overflow: hidden; }
+  .btn-enter::before { content: ''; position: absolute; inset: 0; background: rgba(255,255,255,0.15); transform: translateX(-100%); transition: transform 0.3s ease; }
+  .btn-enter:hover::before { transform: translateX(0); }
+  .btn-enter:hover { letter-spacing: 0.2em; }
+  .btn-enter:active { transform: scale(0.97); }
+  .btn-arrow { display: inline-block; transition: transform 0.2s; }
+  .btn-enter:hover .btn-arrow { transform: translateX(4px); }
+  #progress-rail { position: fixed; right: 20px; top: 50%; transform: translateY(-50%); z-index: 200; display: flex; flex-direction: column; gap: 10px; align-items: center; }
+  .prog-dot { width: 6px; height: 6px; border: 1px solid var(--text-3); background: transparent; transition: all 0.25s; cursor: pointer; position: relative; }
+  .prog-dot:hover { border-color: var(--text); }
+  .prog-dot.active { background: var(--red); border-color: var(--red); transform: scale(1.4); }
+  .prog-dot .prog-label { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.08em; color: var(--text-3); white-space: nowrap; opacity: 0; transition: opacity 0.2s; pointer-events: none; }
+  .prog-dot:hover .prog-label, .prog-dot.active .prog-label { opacity: 1; color: var(--text); }
+  @media (max-width: 900px) { #progress-rail { display: none; } }
+  .table-filter-wrap { display: flex; align-items: center; justify-content: flex-end; margin-bottom: 0.5rem; gap: 8px; }
+  .filter-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: var(--text-3); text-transform: uppercase; }
+  .btn-filter { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); background: transparent; border: 1px solid var(--line-2); padding: 5px 12px; cursor: pointer; transition: all 0.2s; }
+  .btn-filter:hover { border-color: var(--red); color: var(--red); }
+  .btn-filter.on { background: var(--red-dim); border-color: var(--red); color: var(--red); }
+  .compare-row.hidden { display: none; }
+  .vct-tier-toggle { display: flex; align-items: center; gap: 10px; cursor: pointer; user-select: none; width: 100%; }
+  .vct-toggle-icon { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--text-3); transition: transform 0.25s; flex-shrink: 0; margin-left: auto; padding-right: 0.5rem; }
+  .vct-tier.open .vct-toggle-icon { transform: rotate(180deg); }
+  .vct-tier-collapsible { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.3s ease; }
+  .vct-tier.open .vct-tier-collapsible { grid-template-rows: 1fr; }
+  .vct-tier-collapsible-inner { overflow: hidden; display: flex; border-top: 0 solid var(--line); transition: border-top-width 0.3s; }
+  .vct-tier.open .vct-tier-collapsible-inner { border-top-width: 1px; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .cover-eyebrow { animation: fadeUp 0.6s ease 0.1s both; }
+  .cover-title { animation: fadeUp 0.7s ease 0.25s both; }
+  .cover-subtitle { animation: fadeUp 0.7s ease 0.4s both; }
+  .cover-stats { animation: fadeUp 0.7s ease 0.55s both; }
+  @keyframes scanline { 0% { transform: translateY(-100%); } 100% { transform: translateY(100vh); } }
+  .cover::after { content: ''; position: absolute; left: 0; top: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, var(--red), transparent); animation: scanline 4s ease-in-out infinite; pointer-events: none; opacity: 0.4; }
+</style>
+</head>
+<body>
+<div class="cover"><div class="cover-bg"></div><div class="cover-accent"></div><div class="cover-top"><div><span class="cover-tag hot">电竞生态</span><span class="cover-tag">行业研究</span><span class="cover-tag">中国市场</span></div><div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--text-3);letter-spacing:0.1em">2025 · VALORANT RESEARCH</div></div><div class="cover-body"><div class="cover-eyebrow">// 当电竞成为增长引擎</div><div class="cover-title"><div>VALORANT</div><div class="line-red">无畏契约</div><div class="line-dim">电竞化路径观察</div></div><div class="cover-subtitle">Valorant证明了一件事：竞技游戏可以把电竞赛事体系作为核心商业引擎，而不只是附属的营销工具。本报告从产品设计、VCT赛事体系、皮肤经济学到中国市场博弈，解构这套模型的运作逻辑。</div><div class="cover-enter"><button class="btn-enter" onclick="enterReport()">进入报告 <span class="btn-arrow">→</span></button></div></div><div class="cover-stats"><div class="stat-item"><div class="stat-num">1500<span>万+</span></div><div class="stat-label">日活跃玩家</div></div><div class="stat-item"><div class="stat-num">160<span>+</span></div><div class="stat-label">覆盖国家地区</div></div><div class="stat-item"><div class="stat-num">236<span>万</span></div><div class="stat-label">VCT CN 2024观看峰值</div></div><div class="stat-item"><div class="stat-num">33<span>秒</span></div><div class="stat-label">上海大师赛门票售罄</div></div></div></div>
+<nav><a class="nav-item active" href="#s0">00 · 核心论点</a><a class="nav-item" href="#s1">01 · 产品基础</a><a class="nav-item" href="#s2">02 · VCT 体系</a><a class="nav-item" href="#s3">03 · 皮肤经济</a><a class="nav-item" href="#s4">04 · 中国市场</a><a class="nav-item" href="#s5">05 · 行业启示</a></nav>
+<div id="progress-rail"><div class="prog-dot active" data-target="s0" onclick="scrollToSection('s0')"><span class="prog-label">核心论点</span></div><div class="prog-dot" data-target="s1" onclick="scrollToSection('s1')"><span class="prog-label">产品基础</span></div><div class="prog-dot" data-target="s2" onclick="scrollToSection('s2')"><span class="prog-label">VCT 体系</span></div><div class="prog-dot" data-target="s3" onclick="scrollToSection('s3')"><span class="prog-label">皮肤经济</span></div><div class="prog-dot" data-target="s4" onclick="scrollToSection('s4')"><span class="prog-label">中国市场</span></div><div class="prog-dot" data-target="s5" onclick="scrollToSection('s5')"><span class="prog-label">行业启示</span></div></div>
+<div class="section" id="s0"><div class="section-header"><div class="section-num">00</div><div class="section-title">核心论点</div></div><div class="lead">多数游戏公司把电竞当作营销手段——花钱办赛事，让游戏显得更专业。Riot Games做的是另一件事：<strong>把电竞赛事设计成产品本身的一部分</strong>，让赛事直接驱动收入、留存和品牌溢价。</div><div class="thesis"><div class="thesis-label">中心论点</div><div class="thesis-body">Valorant的商业成功不能单独归因于玩法设计或皮肤定价——真正的驱动力是一套<strong>赛事—皮肤—社区</strong>的闭环系统：VCT联赛制造顶级选手曝光，顶级选手使用的武器皮肤销量随之上升，皮肤收入的一部分反哺赛事奖金池，奖金池吸引更强的职业战队，战队比赛吸引更多观众——这个飞轮一旦转起来，商业价值远超单纯的游戏运营。</div></div><div class="dim-label">三条核心命题</div><div class="feature-grid"><div class="feature-card"><div class="feature-icon fi-red">命题 01</div><div class="feature-title">电竞是产品设计，不是营销预算</div><div class="feature-body">VCT联赛的三级结构、城市队制度、赛事皮肤分成机制——每一个设计都深度嵌入游戏的商业模型，而非外挂的���广活动。</div></div><div class="feature-card"><div class="feature-icon fi-gold">命题 02</div><div class="feature-title">皮肤溢价来自赛场，不来自美工</div><div class="feature-body">同一套皮肤，有VCT职业选手使用背书的，比普通皮肤定价高出数倍。这个溢价空间不是设计创造的，是电竞曝光创造的。</div></div><div class="feature-card"><div class="feature-icon fi-teal">命题 03</div><div class="feature-title">进入中国是这套模型最大的压力测试</div><div class="feature-body">国服代理涉及版号审批、内容审查、定价自主权、赛事体系并轨等多个复杂变量，中国市场同时考验了这套商业模型的弹性上限。</div></div></div></div>
+<div class="section" id="s1"><div class="section-header"><div class="section-num">01</div><div class="section-title">产品基础：为什么适合电竞化</div></div><div class="lead">不是所有游戏都能电竞化。Valorant在产品设计层面有几个天然适合职业赛事化的特征——这些不是后来加上去的，而是从立项就决定了的。</div><div class="dim-label">四项关键设计决策</div><div class="vct-tiers"><div class="vct-tier t1"><div class="vct-tier-level"><div class="tier-name">经济系统</div><div class="tier-sub">回合制买枪逻辑</div></div><div class="vct-tier-body">每回合开始前玩家用积累的钱购买武器和道具，输掉回合损失装备，赢下回合获得收益。这套经济系统制造了回合间的“是否全购”心理张力——这种决策深度在观众视角极易感知，是FPS游戏中最适合电竞解说的机制之一。</div><div class="vct-tier-meta"><span>观赏性极高</span><span style="color:var(--red)">战术博弈核心</span></div></div><div class="vct-tier t2"><div class="vct-tier-level"><div class="tier-name">英雄差异化</div><div class="tier-sub">技能 × 枪法双维度</div></div><div class="vct-tier-body">不同于CS的纯枪法博弈，Valorant每个英雄有独特技能，催生了“功能性角色配合”的战术体系。职业队伍围绕角色组合设计战术，赛场上的英雄选择博弈本身成为内容，进一步提升了比赛可看性。</div><div class="vct-tier-meta"><span>Meta演化丰富</span><span style="color:var(--gold)">策略层次多</span></div></div><div class="vct-tier t3"><div class="vct-tier-level"><div class="tier-name">低配置要求</div><div class="tier-sub">普及性优先</div></div><div class="vct-tier-body">Valorant刻意压低配置门槛，采用漫画风格牺牲画质换取更大的潜在玩家池。更多玩家意味着更深的排位积累、更广的电竞受众基础，这是对东南亚、拉丁美洲等新兴市场的提前布局。</div><div class="vct-tier-meta"><span>全球覆盖广</span><span style="color:var(--teal)">新兴市场友好</span></div></div><div class="vct-tier"><div class="vct-tier-level"><div class="tier-name" style="color:var(--text-2)">反外挂</div><div class="tier-sub">Vanguard 内核级</div></div><div class="vct-tier-body">内核级反外挂系统Vanguard是职业赛事公信力的基础。CS:GO长期饱受外挂问题困扰导致赛事信任度受损，Valorant从一开始就把反外挂作为产品核心投入——这是职业赛事化的隐性前提条件。</div><div class="vct-tier-meta"><span>赛事公信力保障</span><span style="color:var(--text-3)">技术基础设施</span></div></div></div><div class="callout teal"><div class="callout-label">与 CS2 的本质差异</div>CS2拥有更纯粹的枪法体系和更悠久的电竞传统，但Valorant的英雄技能层让Meta演化更快、战术体系更丰富，降低了新玩家进入职业赛事观看的理解门槛。两者不是替代关系，而是在同一赛道上服务不同深度的玩家群体。</div></div>
+<div class="section" id="s2"><div class="section-header"><div class="section-num">02</div><div class="section-title">VCT 体系：三级赛制的商业逻辑</div></div><div class="lead">VCT（VALORANT Champions Tour）不是单纯的赛事系列，而是一套<strong>从草根到职业的完整生态基础设施</strong>。它的设计目标是：让每一个段位的玩家都能找到自己和职业赛事的连接点。</div><div class="dim-label">三级联赛结构</div><div class="vct-tiers"><div class="vct-tier t1 open"><div class="vct-tier-level vct-tier-toggle" onclick="toggleTier(this.parentElement)"><div class="tier-name">VCT Champions</div><div class="tier-sub">全球总决赛</div><span class="vct-toggle-icon">▾</span></div><div class="vct-tier-collapsible"><div class="vct-tier-collapsible-inner"><div class="vct-tier-body">年度压轴赛事，16支队伍角逐世界冠军。2021年柏林首届举办，2024年首尔站观看峰值破200万，门票价值与顶级体育赛事相当。冠军皮肤（Champions系列）每年随此赛事发售，是定价最高的皮肤线之一。</div><div class="vct-tier-meta"><span>全球16队</span><span style="color:var(--red)">年度最高曝光</span></div></div></div></div><div class="vct-tier t2"><div class="vct-tier-level vct-tier-toggle" onclick="toggleTier(this.parentElement)"><div class="tier-name">Masters</div><div class="tier-sub">国际大师赛</div><span class="vct-toggle-icon">▾</span></div><div class="vct-tier-collapsible"><div class="vct-tier-collapsible-inner"><div class="vct-tier-body">年度两站国际大赛，各大区顶尖队伍汇聚，是积累冠军赛资格积分的关键节点。2025赛季为曼谷站（2月）和多伦多站（6月），赛事城市的选择本身也是Riot对当地市场的品牌布局。年度总决赛冠军赛（Champions）另行举办，2025年落地巴黎。</div><div class="vct-tier-meta"><span>跨区对抗</span><span style="color:var(--gold)">积分关键节点</span></div></div></div></div><div class="vct-tier t3"><div class="vct-tier-level vct-tier-toggle" onclick="toggleTier(this.parentElement)"><div class="tier-name">VCT League</div><div class="tier-sub">各区联赛</div><span class="vct-toggle-icon">▾</span></div><div class="vct-tier-collapsible"><div class="vct-tier-collapsible-inner"><div class="vct-tier-body">Americas、EMEA、Pacific、CN四大赛区常规联赛，2025赛季每区扩至12支队伍。这是本地化运营的核心阵地——CN赛区由腾竞体育运营，有独立的品牌赞助、解说体系和观赛文化。</div><div class="vct-tier-meta"><span>本地化基础</span><span style="color:var(--teal)">全年稳定内容</span></div></div></div></div></div><div class="dim-label">城市队模式的商业意义</div><div class="callout gold"><div class="callout-label">关键机制</div>2023年起，VCT引入城市战队（Franchised City Teams）模式——每支参赛队伍与特定城市/地区绑定，类似NBA球队与城市的关系。这套机制直接带动了本地赞助商、城市电竞基础设施投入和球迷经济，让电竞的商业化从赛事广告延伸到城市品牌运营层面，是传统电竞模式到“城市体育产业”转型的关键一步。</div><div class="dim-label">CN赛区：独立运作的样本</div><table class="data-table"><thead><tr><th>维度</th><th>CN赛区（无畏契约）</th><th>国际赛区对比</th></tr></thead><tbody><tr><td>运营主体</td><td>腾竞体育 + 英雄体育联合运营，Riot监督赛事标准</td><td>Riot直接运营，无第三方代理层</td></tr><tr><td>2024赛季成绩</td><td>EDG夺得2024全球冠军赛冠军，CN赛区首冠；观看峰值184万</td><td>其余赛区无单一赛区夺冠纪录</td></tr><tr><td>赛事规模</td><td>上海大师赛门票33秒售罄；整体观看人数峰值236万</td><td>全球冠军赛峰值约200-300万</td></tr><tr><td>赛制并轨</td><td>CN队伍通过积分直接参与国际Masters和Champions，与全球赛制完全并轨</td><td>标准VCT积分体系，无区别</td></tr></tbody></table></div>
+<div class="section" id="s3"><div class="section-header"><div class="section-num">03</div><div class="section-title">皮肤经济学：定价背后的逻辑</div></div><div class="lead">Valorant的皮肤定价在竞技游戏中属于顶级区间，一套高端皮肤捆绑包售价可超过500元人民币。这个定价不是傲慢，而是<strong>有意识地把电竞曝光转化为消费品溢价</strong>的商业设计。</div><div class="dim-label">皮肤分层结构</div><div class="skin-grid"><div class="skin-card"><div class="skin-tier" style="color:var(--text-3)">Select</div><div class="skin-price" style="color:var(--text-2)">875 VP / ¥约70</div><div class="skin-body">基础皮肤线，无特效，入门定价。主要功能是让玩家以较低成本参与消费，建立付费习惯。</div></div><div class="skin-card"><div class="skin-tier" style="color:var(--gold)">Premium / Ultra</div><div class="skin-price" style="color:var(--gold)">1775–2475 VP / ¥140–200</div><div class="skin-body">中高端主力线，包含动画特效、击杀音效和终结动画。这是销量最大的区间，性价比感知强。</div></div><div class="skin-card"><div class="skin-tier" style="color:var(--red)">Exclusive / Champions</div><div class="skin-price" style="color:var(--red)">捆绑包 ¥400–700+</div><div class="skin-body">顶级皮肤线及年度冠军赛专属系列，限时发售。VCT赛场曝光直接带动此层级销量，是电竞→消费的最直接转化。</div></div></div><div class="thesis"><div class="thesis-label">核心机制</div><div class="thesis-body">VCT Champions赛事期间，Riot发售“冠军礼包”——玩家购买后，收益的一部分直接进入参赛队伍的奖金池。2021年首届便筹集到<strong>750万美元以上</strong>的奖金，其中冠军队伍可获得奖金池的35%。这套机制把玩家消费行为直接和职业队伍命运挂钩，比任何赞助广告都更能激发粉丝的购买动机。</div></div><div class="dim-label">溢价的来源</div><div class="pressure-wrap"><div class="pressure-item"><div class="pressure-label">电竞赛场职业选手背书</div><div class="pressure-track"><div class="pressure-fill fill-red" style="width:90%"></div></div><div class="pressure-val">最强驱动</div></div><div class="pressure-item"><div class="pressure-label">稀缺性（限时/限量）</div><div class="pressure-track"><div class="pressure-fill fill-red" style="width:72%"></div></div><div class="pressure-val">高</div></div><div class="pressure-item"><div class="pressure-label">皮肤视觉与音效品质</div><div class="pressure-track"><div class="pressure-fill fill-gold" style="width:60%"></div></div><div class="pressure-val">中高</div></div><div class="pressure-item"><div class="pressure-label">社群身份认同（我支持的队伍）</div><div class="pressure-track"><div class="pressure-fill fill-teal" style="width:55%"></div></div><div class="pressure-val">中</div></div><div class="pressure-item"><div class="pressure-label">战斗通行证进度感</div><div class="pressure-track"><div class="pressure-fill fill-teal" style="width:38%"></div></div><div class="pressure-val">辅助</div></div></div><div class="callout"><div class="callout-label">与国服定价的矛盾</div>国服皮肤定价被普遍反映高于外服——同款皮肤国服价格有时接近港服/东南亚服的两倍。这一定价差异的成因复杂，涉及腾讯代理的定价自主权、人民币汇率换算方式及渠道加价逻辑，是“外资游戏进中国”商业模式中最常被玩家感知到的矛盾点之一。</div></div>
+<div class="section" id="s4"><div class="section-header"><div class="section-num">04</div><div class="section-title">进入中国：代理模式下的博弈</div></div><div class="lead">Valorant进入中国大陆的路径，是外资顶级游戏IP落地中国市场的典型案例——从立项到上线历经三年，期间涉及版号审批、内容审查、腾讯双重身份、赛事并轨等多个维度的复杂博弈。</div><div class="dim-label">时间线：三年的等待</div><div class="timeline"><div class="timeline-item"><div class="timeline-date">2020.06</div><div class="timeline-event">Valorant全球公测，国服缺席</div><div class="timeline-note">全球160+国家同步上线，中国大陆因版号审批流程缺席，国内玩家只能使用加速器访问港服或亚服</div></div><div class="timeline-item"><div class="timeline-date">2021.09</div><div class="timeline-event">腾讯宣布代理，中文名确定为《无畏契约》</div><div class="timeline-note">腾讯游戏副总裁表示将复制英雄联盟的成功路径；中文名“无畏契约”早在两年前游戏未上线时已确定</div></div><div class="timeline-item"><div class="timeline-date">2022.12</div><div class="timeline-event">获得国家新闻出版署版号批准</div><div class="timeline-note">从著作权登记备案（2020年5月）到获批历时两年半，版号审批是外资游戏进中国最不可控的时间变量</div></div><div class="timeline-item highlight"><div class="timeline-date">2023.07.12</div><div class="timeline-event">国服正式上线，同时在线突破百万</div><div class="timeline-note">距全球公测整整三年。腾竞体育公布国服同时在线常态化突破百万，入局即成规模</div></div><div class="timeline-item highlight"><div class="timeline-date">2024</div><div class="timeline-event">EDG夺得VCT全球冠军，CN赛区元年告捷</div><div class="timeline-note">CN赛区首个参赛年即夺得全球冠军，上海大师赛门票33秒售罄，观看峰值236万——中国电竞市场的体量得到充分验证</div></div><div class="timeline-item"><div class="timeline-date">2026</div><div class="timeline-event">VCT CN Kickoff 赛季持续，赛制并轨稳定运行</div><div class="timeline-note">由TJ Sports、英雄体育、Riot联合运营，CN赛区已成为VCT全球版图中不可或缺的组成部分</div></div></div><div class="dim-label">腾讯的双重身份</div><div class="callout gold"><div class="callout-label">结构性矛盾</div>腾讯在这个关系中同时扮演两个角色：一是Riot Games的控股股东（持股约100%），二是《无畏契约》的国服代理运营商。这意味着腾讯既是Riot的老板，又是Riot在中国的合作伙伴。这种双重身份在品牌控制权、内容审核标准、定价策略上形成了独特的协商结构——国服版本的内容删改（如部分角色皮肤的调整）和版本更新节奏滞后，是这种结构下的典型产物。</div><div class="dim-label">国服与外服：玩家体验落差</div><div class="table-filter-wrap"><span class="filter-label">显示：</span><button class="btn-filter on" id="btn-all" onclick="filterTable('all')">全部维度</button><button class="btn-filter" id="btn-diff" onclick="filterTable('diff')">仅显示差异项</button></div><div style="border:1px solid var(--line-2);margin:0.5rem 0 1.5rem"><div class="compare-row header"><div class="compare-cell">维度</div><div class="compare-cell">国服（无畏契约）</div><div class="compare-cell">国际服（Valorant）</div></div><div class="compare-row" data-diff="true"><div class="compare-cell dim">英雄与模式</div><div class="compare-cell">上线初期仅有16位英雄和4张地图，<span class="tag-good">经快速版本追更后现已与国际服全面同步</span>，国服限定皮肤（离火刃等）也陆续上线</div><div class="compare-cell">全量英雄与模式持续更新，国服因追更速度较快，两服内容差距已基本消除</div></div><div class="compare-row" data-diff="true"><div class="compare-cell dim">内容审查修改</div><div class="compare-cell"><span class="tag-bad">击杀骷髅头爆头效果取消</span>，敌人高亮颜色去掉红色；部分皮肤视觉细节经过本地化调整</div><div class="compare-cell">保留完整暴力视觉效果，无内容删改</div></div><div class="compare-row" data-diff="true"><div class="compare-cell dim">皮肤定价</div><div class="compare-cell"><span class="tag-bad">定价普遍高于外服</span>，以“无畏点券”结算，换算后同款皮肤可达港服/东南亚服约1.5–2倍</div><div class="compare-cell">VP点数结算，港服/东南亚服/欧服整体更低，美服因汇率稍高但仍低于国服</div></div><div class="compare-row" data-diff="true"><div class="compare-cell dim">绝版皮肤</div><div class="compare-cell"><span class="tag-good">冠军赛绝版皮肤可在国服返场</span>（如2022冠军赛礼包），是外服玩家羡慕的罕见优势</div><div class="compare-cell">冠军赛皮肤下架后Riot官方明确不再返场，全球服务器永久绝版</div></div><div class="compare-row" data-diff="true"><div class="compare-cell dim">客服体验</div><div class="compare-cell"><span class="tag-bad">皮肤购买基本无退款机制</span>，申诉流程较繁琐</div><div class="compare-cell">部分服务器（亚服等）支持误购退款，客服响应相对更快</div></div><div class="compare-row" data-diff="false" style="border:none"><div class="compare-cell dim">游戏环境</div><div class="compare-cell"><span class="tag-good">个人枪法水平整体较高</span>，国内玩家基础射击素质强；但团队道具配合意识偏弱，压力玩家比例较高，语音互喷现象较常见</div><div class="compare-cell">港服/亚服：配合意识强，语音多用于报点，氛围更友好；美服：个人主义较强，散打风格明显，语音文化差异大；欧服：战术多样，氛围介于亚服与美服之间，但语言混杂</div></div></div><div class="callout"><div class="callout-label">值得关注的悖论</div>国服上线初期内容少于外服，皮肤定价也高于外服，但这些体验落差并没有压制电竞热度——CN赛区成为2024年全球最亮眼的赛区，EDG夺冠，上海大师赛门票33秒售罄。更有意思的是，国服反而独享“绝版皮肤返场”的特权，连外服玩家都羡慕。这说明在中国市场，电竞热情和游戏本体体验可以相对解耦运作——赛事做好了，其他落差玩家愿意接受。</div></div>
+<div class="section" id="s5"><div class="section-header"><div class="section-num">05</div><div class="section-title">行业启示</div></div><div class="lead">Valorant的商业模型提供了几个可供行业参考的结构性洞察——有些是可以复制的，有些是Riot独特条件下才能实现的。区分这两类，比单纯赞美这个模型更有价值。</div><div class="dim-label">可复制的经验</div><div class="insight-grid"><div class="insight-card"><div class="insight-num">01</div><div class="insight-title">赛事—皮肤—奖金的闭环设计</div><div class="insight-body">玩家购买皮肤→收益进入奖金池→职业选手使用皮肤曝光→更多玩家购买。这个正向循环的设计逻辑不依赖特定游戏品类，只要有足够的职业赛事观赛基础，都可以尝试类似的收益分成机制。</div></div><div class="insight-card"><div class="insight-num">02</div><div class="insight-title">本地化赛区作为商业基础设施</div><div class="insight-body">CN赛区并非简单的“本地化翻译”，而是独立运营主体、独立赞助体系、独立解说文化的完整生态。这种“全球标准+本地运营”的分层结构，是顶级IP进入中国市场可参考的组织模型。</div></div><div class="insight-card"><div class="insight-num">03</div><div class="insight-title">低配置策略的市场覆盖价值</div><div class="insight-body">牺牲画质换取用户基数的策略在东南亚、拉丁美洲等新兴市场被充分验证。竞技类游戏在电竞化路径上，玩家基数往往比画质更重要——足够的排位玩家才能支撑起职业赛事的观众群。</div></div><div class="insight-card"><div class="insight-num">04</div><div class="insight-title">电竞城市化的赞助商逻辑</div><div class="insight-body">城市战队模式让本地企业（城市级赞助商、地产、文旅）找到了赞助切入点，把电竞从“游戏圈内部消费”扩展到城市经济层面。这是电竞商业化从依赖品牌广告到融入城市产业的关键跃升。</div></div></div><div class="dim-label">难以直接复制的条件</div><table class="data-table"><thead><tr><th>条件</th><th>Riot的独特优势</th><th>后来者的挑战</th></tr></thead><tbody><tr><td>英雄联盟的电竞积累</td><td>Riot在LoL上已积累15年电竞运营经验、全球赛区基础设施和职业选手人才网络</td><td>从零开始建立电竞生态需要5-10年的持续亏损投入期</td></tr><tr><td>腾讯的资本背书</td><td>腾讯100%控股Riot，中国市场的资源协调效率极高，版号审批有专业团队长期跟进</td><td>无腾讯背书的外资IP进中国，版号周期和渠道资源获取难度大幅提升</td></tr><tr><td>玩法设计的电竞适配性</td><td>经济系统+英雄技能的组合从立项就为电竞观赏性设计，不是事后改造</td><td>已上线产品的玩法架构难以为了电竞做根本性改动</td></tr></tbody></table><div class="thesis"><div class="thesis-label">最终判断</div><div class="thesis-body">Valorant证明的不是“电竞能挣钱”这个早已被验证的结论，而是<strong>电竞可以成为游戏商业模型的核心组件而非附属品</strong>。这个区别至关重要：前者只需要花钱办赛事，后者要求在产品设计、商业机制、全球运营体系上做系统性投入。能做到后者的公司，在全球竞技游戏市场上构建的护城河，远非普通游戏运营可以追赶。</div></div></div>
+<footer><div class="footer-logo">VALOR<span>ANT</span> · 行业研究</div><div style="text-align:right">数据来源：Riot Games官方 · Liquipedia · 腾竞体育 · 公开媒体报道<br>2025 · 独立研究</div></footer>
+<script>
+  function enterReport() { const target = document.getElementById('s0'); if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  function scrollToSection(id) { const el = document.getElementById(id); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  const sections = document.querySelectorAll('.section');
+  const navItems = document.querySelectorAll('a.nav-item');
+  const progDots = document.querySelectorAll('.prog-dot');
+  function setActive(id) { navItems.forEach(n => n.classList.toggle('active', n.getAttribute('href') === '#' + id)); progDots.forEach(d => d.classList.toggle('active', d.dataset.target === id)); }
+  const secObserver = new IntersectionObserver(entries => { entries.forEach(entry => { if (entry.isIntersecting) setActive(entry.target.id); }); }, { threshold: 0.25 });
+  sections.forEach(s => secObserver.observe(s));
+  navItems.forEach(a => a.addEventListener('click', e => { e.preventDefault(); const target = document.querySelector(a.getAttribute('href')); if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }));
+  function filterTable(mode) { const rows = document.querySelectorAll('.compare-row:not(.header)'); rows.forEach(row => row.classList.toggle('hidden', mode === 'diff' && row.dataset.diff !== 'true')); document.getElementById('btn-all').classList.toggle('on', mode === 'all'); document.getElementById('btn-diff').classList.toggle('on', mode === 'diff'); }
+  function toggleTier(tier) { tier.classList.toggle('open'); }
+  const bars = document.querySelectorAll('.pressure-fill'); const widths = []; bars.forEach(b => { widths.push(b.style.width); b.style.width = '0'; });
+  const barObs = new IntersectionObserver(entries => { entries.forEach(entry => { if (entry.isIntersecting) { bars.forEach((b, i) => setTimeout(() => { b.style.width = widths[i]; }, i * 100)); barObs.disconnect(); } }); }, { threshold: 0.5 });
+  const pw = document.querySelector('.pressure-wrap'); if (pw) barObs.observe(pw);
+</script>
+</body>
+</html>
